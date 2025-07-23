@@ -32,48 +32,27 @@ The Object Handler is the master program and instructs the Toolkit on what to do
         		 - Have no truth jet.
         		 - Have no cluster with a total transverse energy of greater than 0.
         		 - Have an eta with an absolute value greater than 5.
+		 - The 'raw' jet guess is created here as well, with the standard clusters.
    	 4. The blacklist containing all the cells already in a cluster is created for this event.
    	 5. The filter for the event is set up.
-     		 - To edit the filter, you must manually edit it in the Toolkit.h file. 
+     		 - To edit the filter, you must manually edit it in the Toolkit.h file.
      	 5. The Filter system is run in three steps on all cells.
-
-The Object Handler loads the data from the cluster_Data_Object.h and CaloCellsMap.h files at the addresses set in the fileNames vector.
-
-The main code is run within the j for loop located in the Object Handler.
-
-It first updates the entry with the new event data.
-	It saves all the clusters with a total transverse energy greater than 0 to local memory
-	It sets up the event and checks if it is a 'bad' event.
-		Bad events are ones that have an empty truth jet, a truth jet with an eta value greater than 5 or less than -5, or no clusters with a total transverse energy greater than 0.
-		The program will alert you if one of these occurs.
-		These will be skipped, and not included in the final data. If all events were bad events then the program won't have any data to display and nothing will happen at the end.
-	
-Next, it sets up the blacklist of all cells that are already in a cluster to avoid double counting.
-
-Next, the program sets up the filter.
-	To modify this filter, you will need to open the toolkit file for now and manually edit it.
-	
-The filter runs in 3 parts to play nice with the c++ compiler.
-All cells are run through the 'global filter' first.
-	This filter checks the energy of the cell, if the cell is blacklisted, and if the cell is a bad cell.
-	Any cells that pass all these filters are saved to the whitelist vector
-Next is the position filter.
-	This filter checks the cell to see if it is within the range of at least one cluster.
-	Any cells that pass this list are saved to the OOC_Cells vector.
-Lastly, it assigns all the cells that passed to their clusters and gives the appropriate energies.
-
-Next, with the new OOC energies applied to the clusters, a new jet is made.
-
-If you are searching through multiple filter parameters, then it will take the OOC_Cells vector of cells and run the different filter parameters on them.
-	As such, it is very important that your first set of filters is the most generous!
-	
-Lastly, the results are displayed in the form of a 3d graph for both the Delta R distance and standard deviation from the truth jet to the OOC guess jet and the Transverse Momentum error and standard deviation between the OOC guess jet and the truth jet.
-
+       		 - This is to play nice with the C++ compiler as doing it all in one loop causes the program to become incredibly slow.
+         	 - The First filter is the 'global filter' that filters by the energy of the cell and if the cell is blacklisted or a bad cell.
+          	 - The Second filter checks if the cell is within the range of any cluster.
+                 - The Third filter assigns the cells to their cluster(s) and then updates the clusters with their OOC energies.
+         7. If any filter parameters are set with search = true, the cells are filtered again with all combinations of each filter parameter.
+        	 - The filters run from most generous to least generous. If you are starting a search from 0 to 4 EN, your first filter must be 0.
+        	 - This is because all searches are run on the cells that passed the first set of filters to save time and make the program run faster.
+         8. The data from all this is saved in the Jet object.
+         9. The remaining data of the event is cleaned in preparation for the next event.
+ 4. Once it has reached the end of all events and files, a 3D display of the Delta R distance and Transverse Momentum Error is displayed for all filter parameters.
 
 -WARNINGS!-
+
 Running this with a very low or 0 minimum energy will cause the program to be very slow. It is suggested that if you want to test a filter range from 0 min en and up, you do it in chunks. As an example, if you wanted to do 0-4 min en, you should do 1-4 min en and then 0-1 min en.
 
-Sometimes the program just stops. I have no idea why, there are no errors, ROOT just quits and returns to the default command line. This typically only happens if the program is running several data sets at once. As such I recommend running them one by one.
+Sometimes the program just stops. I have no idea why; there are no errors; ROOT just quits and returns to the default command line. This typically only happens if the program is running several data sets at once. As such, I recommend running them in small batches or one by one.
 
 -To Do-
  - Much of the code needs to be migrated over to a for_each and transform to take advantage of vectorization.
