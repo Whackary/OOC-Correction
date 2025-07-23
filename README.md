@@ -29,7 +29,7 @@ The program takes abundant use of pointers and stores very little data locally.
 	<li>Reads the files and sets up the objects.</li>
 	<li>The 'i' for loop runs over all files set up in the fileNames vector.</li>
 	<ol>
-		<li>As a note, if the program runs over too many files, it crashes. See -WARNINGS!- below for more information.</li>
+		<li>As a note, if the program runs over too many files, it crashes. See WARNINGS below for more information.</li>
 	</ol>
 	<li>The 'j' for loop runs through all the events in each file.</li>
 	<ol>
