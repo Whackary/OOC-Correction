@@ -1,4 +1,4 @@
-READ ME
+# READ ME
 
 ## Purpose
 <p>This program's purpose is to use Out Of Cluster (OOC) corrections to create better Jet Guesses when compared to a standard clustering algorithm.</p>
@@ -66,7 +66,7 @@ The program takes abundant use of pointers and stores very little data locally.
 	<li>Once it has reached the end of all events and files, a 3D display of the Delta R distance and Transverse Momentum Error is displayed for all filter parameters.</li>
 </ol>
 
-## WARNINGS!
+# WARNINGS!
 <p>Running this with a very low or 0 minimum energy will cause the program to be very slow. It is suggested that if you want to test a filter range from 0 min en and up, you do it in chunks. As an example, if you wanted to do 0-4 min en, you should do 1-4 min en and then 0-1 min en.<br>
 Sometimes the program just stops. I have no idea why; there are no errors; ROOT just quits and returns to the default command line. This typically only happens if the program is running several data sets at once. As such, I recommend running them in small batches or one by one.</p>
 
