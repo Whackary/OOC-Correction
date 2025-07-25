@@ -1,0 +1,23 @@
+PT 10 Sample Used
+
+GEPBasicClusters used
+
+Jet Vector Size: 1000
+Raw Errors:
+Delta R: 0.0592164 PT: 0.474689
+
+Normalized Energy:
+Min: True
+Abs: True
+Min: 1
+Search Start: 0
+Search End: 3
+Total Range 1 to 4
+
+Delta R
+Max: true
+Max: Set by cluster.
+Search start: 0
+Search end: 0.3
+Total range: Cluster + 0 to Cluster + 0.3
+
